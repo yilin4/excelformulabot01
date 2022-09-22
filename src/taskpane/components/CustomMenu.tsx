@@ -1,20 +1,35 @@
 import * as React from "react";
-import { Menu, MenuItem } from "@progress/kendo-react-layout";
+import { Pivot, PivotItem } from "@fluentui/react";
+import FormulaBot from "./pages/FormulaBot";
+import Archive from "./pages/Archive";
+import { Consult } from "./interfaces";
 
-interface IProps {
-  menulist: string[];
+interface IState {
+  history: Consult[];
 }
 
-export default class CustomMenu extends React.Component<IProps> {
+export default class CustomMenu extends React.Component<{}, IState> {
+  constructor(props) {
+    super(props);
+    this.state = { history: [] };
+    this.addToHistory.bind(this);
+  }
+
+  addToHistory(input: string, output: string) {
+    this.setState({ history: Object.assign([], this.state.history, { input: input, output: output }) });
+  }
+
   render() {
-    //const { menulist } = this.props;
-    // eslint-disable-next-line prettier/prettier
     return (
       <div>
-        <Menu vertical={true} style={{ display: "inline-block" }}>
-          <MenuItem text="Item1" />
-          <MenuItem text="Item3" />
-        </Menu>
+        <Pivot>
+          <PivotItem headerText="Formula Bot">
+            <FormulaBot addToHistory={this.addToHistory} />
+          </PivotItem>
+          <PivotItem headerText="Archive">
+            <Archive history={this.state.history} />
+          </PivotItem>
+        </Pivot>
       </div>
     );
   }
