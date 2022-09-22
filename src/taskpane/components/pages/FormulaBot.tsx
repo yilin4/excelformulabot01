@@ -1,5 +1,6 @@
 import * as React from "react";
 import { DefaultButton, IStackTokens, Stack } from "@fluentui/react";
+import { Consult } from "../interfaces";
 
 /* global console, Excel */
 
@@ -16,6 +17,7 @@ interface IState {
 
 interface IProps {
   addToHistory;
+  history: Consult[];
 }
 
 export default class FormulaBot extends React.Component<IProps, IState> {
@@ -31,7 +33,6 @@ export default class FormulaBot extends React.Component<IProps, IState> {
         range.load("values");
         await context.sync();
         const input = range.values[0][0] as string;
-        console.log(input);
         const message = prefix + input + sufix;
         const content = JSON.stringify({
           model: "code-davinci-002",

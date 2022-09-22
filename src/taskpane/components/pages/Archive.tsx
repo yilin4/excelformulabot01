@@ -1,4 +1,4 @@
-import { ITextFieldStyles, List, mergeStyles, TextField } from "@fluentui/react";
+import { DetailsList, DetailsListLayoutMode, IColumn, ITextFieldStyles, mergeStyles, TextField } from "@fluentui/react";
 import * as React from "react";
 import { Consult } from "../interfaces";
 
@@ -14,9 +14,14 @@ interface IState {
 }
 
 export default class Archive extends React.Component<{ history: Consult[] }, IState> {
+  private _columns: IColumn[];
   constructor(props) {
     super(props);
 
+    this._columns = [
+      { key: "column1", name: "Input", fieldName: "input", minWidth: 100, maxWidth: 200, isResizable: true },
+      { key: "column2", name: "Output", fieldName: "output", minWidth: 100, maxWidth: 200, isResizable: true },
+    ];
     this.state = {
       items: this.props.history,
     };
@@ -32,7 +37,7 @@ export default class Archive extends React.Component<{ history: Consult[] }, ISt
           onChange={this._onFilter}
           styles={textFieldStyles}
         />
-        <List items={items} />
+        <DetailsList items={items} columns={this._columns} layoutMode={DetailsListLayoutMode.justified} />
       </>
     );
   }

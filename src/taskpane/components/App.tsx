@@ -8,7 +8,7 @@ export default class App extends React.Component {
   render() {
     return (
       <>
-        <img src="" /> {/* logo image */}
+        <img src="D:\test\excelformulabot01\resources\excelformulabot.svg" /> {/* logo image */}
         <CustomMenu />
       </>
     );
